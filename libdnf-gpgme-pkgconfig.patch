@@ -1,0 +1,49 @@
+--- libdnf-0.70.0/cmake/modules/FindGpgme.cmake.orig	2023-04-02 08:32:33.289207745 +0200
++++ libdnf-0.70.0/cmake/modules/FindGpgme.cmake	2023-04-02 08:32:38.262514136 +0200
+@@ -199,14 +199,14 @@ else() # not WIN32
+     set( GPGME_PTHREAD_FOUND false )
+     set( GPGME_PTH_FOUND     false )
+ 
+-    find_program( _GPGMECONFIG_EXECUTABLE NAMES gpgme-config )
++    find_program( _GPGMECONFIG_EXECUTABLE NAMES pkg-config )
+ 
+     # if gpgme-config has been found
+     if ( _GPGMECONFIG_EXECUTABLE )
+ 
+       message( STATUS "Found gpgme-config at ${_GPGMECONFIG_EXECUTABLE}" )
+ 
+-      exec_program( ${_GPGMECONFIG_EXECUTABLE} ARGS --version OUTPUT_VARIABLE GPGME_VERSION )
++      exec_program( ${_GPGMECONFIG_EXECUTABLE} ARGS --modversion gpgme OUTPUT_VARIABLE GPGME_VERSION )
+ 
+ #      set( _GPGME_MIN_VERSION "1.1.7" )
+ #      macro_ensure_version( ${_GPGME_MIN_VERSION} ${GPGME_VERSION} _GPGME_INSTALLED_VERSION_OK )
+@@ -219,17 +219,17 @@ else() # not WIN32
+ 
+         message( STATUS "Found gpgme v${GPGME_VERSION}, checking for flavours..." )
+ 
+-        exec_program( ${_GPGMECONFIG_EXECUTABLE} ARGS                  --libs OUTPUT_VARIABLE _gpgme_config_vanilla_libs RETURN_VALUE _ret )
++        exec_program( ${_GPGMECONFIG_EXECUTABLE} ARGS                  --libs gpgme OUTPUT_VARIABLE _gpgme_config_vanilla_libs RETURN_VALUE _ret )
+ 	if ( _ret )
+ 	  set( _gpgme_config_vanilla_libs )
+ 	endif()
+ 
+-        exec_program( ${_GPGMECONFIG_EXECUTABLE} ARGS --thread=pthread --libs OUTPUT_VARIABLE _gpgme_config_pthread_libs RETURN_VALUE _ret )
++        exec_program( ${_GPGMECONFIG_EXECUTABLE} ARGS --libs gpgme OUTPUT_VARIABLE _gpgme_config_pthread_libs RETURN_VALUE _ret )
+ 	if ( _ret )
+ 	  set( _gpgme_config_pthread_libs )
+ 	endif()
+ 
+-        exec_program( ${_GPGMECONFIG_EXECUTABLE} ARGS --thread=pth     --libs OUTPUT_VARIABLE _gpgme_config_pth_libs     RETURN_VALUE _ret )
++        exec_program( ${_GPGMECONFIG_EXECUTABLE} ARGS --libs gpgme OUTPUT_VARIABLE _gpgme_config_pth_libs     RETURN_VALUE _ret )
+ 	if ( _ret )
+ 	  set( _gpgme_config_pth_libs )
+ 	endif()
+@@ -243,7 +243,7 @@ else() # not WIN32
+ 
+         if ( _gpgme_config_vanilla_libs OR _gpgme_config_pthread_libs OR _gpgme_config_pth_libs )
+ 
+-          exec_program( ${_GPGMECONFIG_EXECUTABLE} ARGS --cflags OUTPUT_VARIABLE _GPGME_CFLAGS )
++          exec_program( ${_GPGMECONFIG_EXECUTABLE} ARGS --cflags gpgme OUTPUT_VARIABLE _GPGME_CFLAGS )
+ 
+           if ( _GPGME_CFLAGS )
+             string( REGEX REPLACE "(\r?\n)+$" " " _GPGME_CFLAGS  "${_GPGME_CFLAGS}" )

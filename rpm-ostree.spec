@@ -5,13 +5,14 @@
 Summary:	Hybrid package/OSTree system
 Summary(pl.UTF-8):	Hybrydowy system pakietów/OSTree
 Name:		rpm-ostree
-Version:	2022.10
+Version:	2023.4
 Release:	1
 License:	GPL v2+, LGPL v2+, Apache v2.0 or MIT
 Group:		Applications/System
 #Source0Download: https://github.com/coreos/rpm-ostree/releases
 Source0:	https://github.com/coreos/rpm-ostree/releases/download/v%{version}/%{name}-%{version}.tar.xz
-# Source0-md5:	41204ce8309f2d1b753e6e161b1bab80
+# Source0-md5:	13427adb6d6cfbe70c5d1849ca0e28f5
+Patch0:		libdnf-gpgme-pkgconfig.patch
 URL:		https://github.com/coreos/rpm-ostree
 BuildRequires:	autoconf >= 2.63
 BuildRequires:	automake >= 1:1.11
@@ -26,7 +27,7 @@ BuildRequires:	libstdc++-devel >= 6:4.7
 BuildRequires:	libtool >= 2:2.2.4
 BuildRequires:	libxslt-progs
 BuildRequires:	openssl-devel
-BuildRequires:	ostree-devel >= 2021.2
+BuildRequires:	ostree-devel >= 2022.7
 BuildRequires:	pkgconfig
 BuildRequires:	polkit-devel
 BuildRequires:	rpm-build >= 4.6
@@ -34,7 +35,7 @@ BuildRequires:	rpm-devel >= 1:4.17
 BuildRequires:	rust
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
-BuildRequires:	zchunk-devel
+BuildRequires:	zchunk-devel >= 0.9.11
 %if %{without system_libdnf}
 # is system libdnf possible?
 BuildRequires:	cmake >= 2.8.5
@@ -42,7 +43,8 @@ BuildRequires:	gpgme-devel
 BuildRequires:	json-c-devel
 BuildRequires:	libmodulemd-devel >= 2.11.2
 BuildRequires:	librepo-devel >= 1.13.0
-BuildRequires:	libsolv-devel
+BuildRequires:	libsmartcols-devel
+BuildRequires:	libsolv-devel >= 0.7.21
 BuildRequires:	sqlite3-devel >= 3
 BuildRequires:	zlib-devel
 %endif
@@ -80,7 +82,7 @@ Summary:	Hybrid package/OSTree system library
 Summary(pl.UTF-8):	Biblioteka hybrydowego systemu pakietów/OSTree
 Group:		Libraries
 Requires:	glib2 >= 1:2.50.0
-Requires:	ostree >= 2021.2
+Requires:	ostree >= 2022.7
 
 %description libs
 Hybrid package/OSTree system library.
@@ -94,7 +96,7 @@ Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki rpm-ostree
 Group:		Development/Libraries
 Requires:	%{name}-libs = %{version}-%{release}
 Requires:	glib2-devel >= 1:2.50.0
-Requires:	ostree-devel >= 2021.2
+Requires:	ostree-devel >= 2022.7
 
 %description devel
 Header files for rpm-ostree library.
@@ -116,12 +118,11 @@ Dokumentacja API biblioteki rpm-ostree.
 
 %prep
 %setup -q
+%patch0 -p1 -d libdnf
 
 # see autogen.sh
 %{__sed} -e 's,$(libglnx_srcpath),'$(pwd)/libglnx,g < libglnx/Makefile-libglnx.am >libglnx/Makefile-libglnx.am.inc
 ln -sf ../libglnx/libglnx.m4 buildutil/libglnx.m4
-
-%{__sed} -i -e 's/4\.17/4.16/' configure.ac
 
 %build
 %{__gtkdocize}
