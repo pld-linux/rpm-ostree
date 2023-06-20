@@ -13,6 +13,7 @@ Group:		Applications/System
 Source0:	https://github.com/coreos/rpm-ostree/releases/download/v%{version}/%{name}-%{version}.tar.xz
 # Source0-md5:	13427adb6d6cfbe70c5d1849ca0e28f5
 Patch0:		libdnf-gpgme-pkgconfig.patch
+Patch1:		%{name}-types.patch
 URL:		https://github.com/coreos/rpm-ostree
 BuildRequires:	autoconf >= 2.63
 BuildRequires:	automake >= 1:1.11
@@ -119,12 +120,19 @@ Dokumentacja API biblioteki rpm-ostree.
 %prep
 %setup -q
 %patch0 -p1 -d libdnf
+%patch1 -p1
 
 # see autogen.sh
 %{__sed} -e 's,$(libglnx_srcpath),'$(pwd)/libglnx,g < libglnx/Makefile-libglnx.am >libglnx/Makefile-libglnx.am.inc
 ln -sf ../libglnx/libglnx.m4 buildutil/libglnx.m4
 
+%ifarch x32
+%{__sed} -i -e '/^cargo_build = / s/$/ --target x86_64-unknown-linux-gnux32/' Makefile-rpm-ostree.am
+%{__sed} -i -e 's,^cargo_target_dir=,cargo_target_dir=x86_64-unknown-linux-gnux32/,' Makefile-rpm-ostree.am
+%endif
+
 %build
+export PKG_CONFIG_ALLOW_CROSS=1
 %{__gtkdocize}
 %{__libtoolize}
 %{__aclocal} -I m4
@@ -140,6 +148,7 @@ ln -sf ../libglnx/libglnx.m4 buildutil/libglnx.m4
 
 %install
 rm -rf $RPM_BUILD_ROOT
+export PKG_CONFIG_ALLOW_CROSS=1
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \

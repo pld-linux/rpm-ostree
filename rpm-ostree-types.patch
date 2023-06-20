@@ -1,0 +1,12 @@
+Fix for 64-bit time_t on ILP32 archs (e.g. x32)
+--- rpm-ostree-2023.4/src/daemon/rpmostree-sysroot-upgrader.cxx.orig	2023-05-18 18:15:37.000000000 +0200
++++ rpm-ostree-2023.4/src/daemon/rpmostree-sysroot-upgrader.cxx	2023-05-21 17:50:56.885836075 +0200
+@@ -1255,7 +1255,7 @@ write_history (RpmOstreeSysrootUpgrader
+   if (!glnx_fstatat (ostree_sysroot_get_fd (self->sysroot), deployment_dirpath, &stbuf, 0, error))
+     return FALSE;
+ 
+-  g_autofree char *fn = g_strdup_printf ("%s/%ld", RPMOSTREE_HISTORY_DIR, stbuf.st_ctime);
++  g_autofree char *fn = g_strdup_printf ("%s/%lld", RPMOSTREE_HISTORY_DIR, (long long)stbuf.st_ctime);
+   if (!glnx_shutil_mkdir_p_at (AT_FDCWD, RPMOSTREE_HISTORY_DIR, 0775, cancellable, error))
+     return FALSE;
+ 
