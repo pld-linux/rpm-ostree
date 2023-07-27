@@ -5,13 +5,13 @@
 Summary:	Hybrid package/OSTree system
 Summary(pl.UTF-8):	Hybrydowy system pakietów/OSTree
 Name:		rpm-ostree
-Version:	2023.4
+Version:	2023.5
 Release:	1
 License:	GPL v2+, LGPL v2+, Apache v2.0 or MIT
 Group:		Applications/System
 #Source0Download: https://github.com/coreos/rpm-ostree/releases
 Source0:	https://github.com/coreos/rpm-ostree/releases/download/v%{version}/%{name}-%{version}.tar.xz
-# Source0-md5:	13427adb6d6cfbe70c5d1849ca0e28f5
+# Source0-md5:	9958bf1386ee1b3618f51f8e9234a1aa
 Patch0:		libdnf-gpgme-pkgconfig.patch
 Patch1:		%{name}-types.patch
 URL:		https://github.com/coreos/rpm-ostree
@@ -69,7 +69,7 @@ Summary:	Bash completion for rpm-ostree commands
 Summary(pl.UTF-8):	Bashowe dopełnianie parametrów poleceń rpm-ostree
 Group:		Applications/Shells
 Requires:	%{name} = %{version}-%{release}
-Requires:	bash-completion >= 2.0
+Requires:	bash-completion >= 1:2.0
 BuildArch:	noarch
 
 %description -n bash-completion-rpm-ostree
