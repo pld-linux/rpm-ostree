@@ -5,13 +5,13 @@
 Summary:	Hybrid package/OSTree system
 Summary(pl.UTF-8):	Hybrydowy system pakietów/OSTree
 Name:		rpm-ostree
-Version:	2023.5
+Version:	2023.10
 Release:	1
 License:	GPL v2+, LGPL v2+, Apache v2.0 or MIT
 Group:		Applications/System
 #Source0Download: https://github.com/coreos/rpm-ostree/releases
 Source0:	https://github.com/coreos/rpm-ostree/releases/download/v%{version}/%{name}-%{version}.tar.xz
-# Source0-md5:	9958bf1386ee1b3618f51f8e9234a1aa
+# Source0-md5:	a0d5a2b8bee99cce3b95a623c825361e
 Patch0:		libdnf-gpgme-pkgconfig.patch
 Patch1:		%{name}-types.patch
 URL:		https://github.com/coreos/rpm-ostree
@@ -28,7 +28,7 @@ BuildRequires:	libstdc++-devel >= 6:4.7
 BuildRequires:	libtool >= 2:2.2.4
 BuildRequires:	libxslt-progs
 BuildRequires:	openssl-devel
-BuildRequires:	ostree-devel >= 2022.7
+BuildRequires:	ostree-devel >= 2023.7
 BuildRequires:	pkgconfig
 BuildRequires:	polkit-devel
 BuildRequires:	rpm-build >= 4.6
@@ -83,7 +83,7 @@ Summary:	Hybrid package/OSTree system library
 Summary(pl.UTF-8):	Biblioteka hybrydowego systemu pakietów/OSTree
 Group:		Libraries
 Requires:	glib2 >= 1:2.50.0
-Requires:	ostree >= 2022.7
+Requires:	ostree >= 2023.7
 
 %description libs
 Hybrid package/OSTree system library.
@@ -97,7 +97,7 @@ Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki rpm-ostree
 Group:		Development/Libraries
 Requires:	%{name}-libs = %{version}-%{release}
 Requires:	glib2-devel >= 1:2.50.0
-Requires:	ostree-devel >= 2022.7
+Requires:	ostree-devel >= 2023.7
 
 %description devel
 Header files for rpm-ostree library.
@@ -172,6 +172,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_libexecdir}/libostree/ext
 %attr(755,root,root) %{_libexecdir}/libostree/ext/ostree-container
 %attr(755,root,root) %{_libexecdir}/libostree/ext/ostree-ima-sign
+%attr(755,root,root) %{_libexecdir}/libostree/ext/ostree-provisional-repair
 %dir %{_libdir}/rpm-ostree
 %{_libdir}/rpm-ostree/rpm-ostree-0-integration.conf
 %{_datadir}/dbus-1/interfaces/org.projectatomic.rpmostree1.xml
