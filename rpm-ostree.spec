@@ -6,7 +6,7 @@ Summary:	Hybrid package/OSTree system
 Summary(pl.UTF-8):	Hybrydowy system pakietów/OSTree
 Name:		rpm-ostree
 Version:	2023.10
-Release:	1
+Release:	2
 License:	GPL v2+, LGPL v2+, Apache v2.0 or MIT
 Group:		Applications/System
 #Source0Download: https://github.com/coreos/rpm-ostree/releases
