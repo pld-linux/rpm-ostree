@@ -5,13 +5,13 @@
 Summary:	Hybrid package/OSTree system
 Summary(pl.UTF-8):	Hybrydowy system pakietów/OSTree
 Name:		rpm-ostree
-Version:	2023.10
-Release:	2
+Version:	2024.8
+Release:	1
 License:	GPL v2+, LGPL v2+, Apache v2.0 or MIT
 Group:		Applications/System
 #Source0Download: https://github.com/coreos/rpm-ostree/releases
 Source0:	https://github.com/coreos/rpm-ostree/releases/download/v%{version}/%{name}-%{version}.tar.xz
-# Source0-md5:	a0d5a2b8bee99cce3b95a623c825361e
+# Source0-md5:	5ab400cf236d93f88afaeb9f49e8f41c
 Patch0:		libdnf-gpgme-pkgconfig.patch
 Patch1:		%{name}-types.patch
 URL:		https://github.com/coreos/rpm-ostree
@@ -32,6 +32,7 @@ BuildRequires:	ostree-devel >= 2023.7
 BuildRequires:	pkgconfig
 BuildRequires:	polkit-devel
 BuildRequires:	rpm-build >= 4.6
+# TODO: new features with 4.18.0+
 BuildRequires:	rpm-devel >= 1:4.17
 BuildRequires:	rust
 BuildRequires:	tar >= 1:1.22
@@ -175,6 +176,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libexecdir}/libostree/ext/ostree-provisional-repair
 %dir %{_libdir}/rpm-ostree
 %{_libdir}/rpm-ostree/rpm-ostree-0-integration.conf
+%{_libdir}/rpm-ostree/rpm-ostree-0-integration-opt-usrlocal.conf
+%{_libdir}/rpm-ostree/rpm-ostree-0-integration-opt-usrlocal-compat.conf
 %{_datadir}/dbus-1/interfaces/org.projectatomic.rpmostree1.xml
 %{_datadir}/dbus-1/system-services/org.projectatomic.rpmostree1.service
 %{_datadir}/dbus-1/system.d/org.projectatomic.rpmostree1.conf
@@ -182,6 +185,7 @@ rm -rf $RPM_BUILD_ROOT
 %{systemdunitdir}/rpm-ostree-bootstatus.service
 %{systemdunitdir}/rpm-ostree-countme.service
 %{systemdunitdir}/rpm-ostree-countme.timer
+%{systemdunitdir}/rpm-ostree-fix-shadow-mode.service
 %{systemdunitdir}/rpm-ostreed-automatic.service
 %{systemdunitdir}/rpm-ostreed-automatic.timer
 %{systemdunitdir}/rpm-ostreed.service
