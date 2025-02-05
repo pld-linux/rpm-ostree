@@ -6,7 +6,7 @@ Summary:	Hybrid package/OSTree system
 Summary(pl.UTF-8):	Hybrydowy system pakietów/OSTree
 Name:		rpm-ostree
 Version:	2024.8
-Release:	1
+Release:	2
 License:	GPL v2+, LGPL v2+, Apache v2.0 or MIT
 Group:		Applications/System
 #Source0Download: https://github.com/coreos/rpm-ostree/releases
@@ -120,8 +120,8 @@ Dokumentacja API biblioteki rpm-ostree.
 
 %prep
 %setup -q
-%patch0 -p1 -d libdnf
-%patch1 -p1
+%patch -P 0 -p1 -d libdnf
+%patch -P 1 -p1
 
 # see autogen.sh
 %{__sed} -e 's,$(libglnx_srcpath),'$(pwd)/libglnx,g < libglnx/Makefile-libglnx.am >libglnx/Makefile-libglnx.am.inc
