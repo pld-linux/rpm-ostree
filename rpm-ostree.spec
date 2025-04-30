@@ -1,3 +1,4 @@
+# TODO: rust part is rebuilt on install, should not
 #
 # Conditional build:
 %bcond_without	apidocs		# API documentation
@@ -5,13 +6,13 @@
 Summary:	Hybrid package/OSTree system
 Summary(pl.UTF-8):	Hybrydowy system pakietów/OSTree
 Name:		rpm-ostree
-Version:	2024.8
-Release:	2
+Version:	2025.7
+Release:	1
 License:	GPL v2+, LGPL v2+, Apache v2.0 or MIT
 Group:		Applications/System
 #Source0Download: https://github.com/coreos/rpm-ostree/releases
 Source0:	https://github.com/coreos/rpm-ostree/releases/download/v%{version}/%{name}-%{version}.tar.xz
-# Source0-md5:	5ab400cf236d93f88afaeb9f49e8f41c
+# Source0-md5:	494ebcfb09a0c71a529c42049e347ced
 Patch0:		libdnf-gpgme-pkgconfig.patch
 Patch1:		%{name}-types.patch
 URL:		https://github.com/coreos/rpm-ostree
@@ -32,8 +33,7 @@ BuildRequires:	ostree-devel >= 2023.7
 BuildRequires:	pkgconfig
 BuildRequires:	polkit-devel
 BuildRequires:	rpm-build >= 4.6
-# TODO: new features with 4.18.0+
-BuildRequires:	rpm-devel >= 1:4.17
+BuildRequires:	rpm-devel >= 1:4.18.0
 BuildRequires:	rust
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
