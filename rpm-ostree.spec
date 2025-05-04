@@ -7,7 +7,7 @@ Summary:	Hybrid package/OSTree system
 Summary(pl.UTF-8):	Hybrydowy system pakietów/OSTree
 Name:		rpm-ostree
 Version:	2025.7
-Release:	1
+Release:	2
 License:	GPL v2+, LGPL v2+, Apache v2.0 or MIT
 Group:		Applications/System
 #Source0Download: https://github.com/coreos/rpm-ostree/releases
@@ -15,6 +15,7 @@ Source0:	https://github.com/coreos/rpm-ostree/releases/download/v%{version}/%{na
 # Source0-md5:	494ebcfb09a0c71a529c42049e347ced
 Patch0:		libdnf-gpgme-pkgconfig.patch
 Patch1:		%{name}-types.patch
+Patch2:		%{name}-system-zlib.patch
 URL:		https://github.com/coreos/rpm-ostree
 BuildRequires:	autoconf >= 2.63
 BuildRequires:	automake >= 1:1.11
@@ -122,6 +123,7 @@ Dokumentacja API biblioteki rpm-ostree.
 %setup -q
 %patch -P 0 -p1 -d libdnf
 %patch -P 1 -p1
+%patch -P 2 -p1
 
 # see autogen.sh
 %{__sed} -e 's,$(libglnx_srcpath),'$(pwd)/libglnx,g < libglnx/Makefile-libglnx.am >libglnx/Makefile-libglnx.am.inc
@@ -136,7 +138,7 @@ ln -sf ../libglnx/libglnx.m4 buildutil/libglnx.m4
 export PKG_CONFIG_ALLOW_CROSS=1
 %{__gtkdocize}
 %{__libtoolize}
-%{__aclocal} -I m4
+%{__aclocal} -I buildutil
 %{__autoconf}
 %{__autoheader}
 %{__automake}

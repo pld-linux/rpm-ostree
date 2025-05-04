@@ -1,0 +1,16 @@
+--- rpm-ostree-2025.7/vendor/libz-sys/build.rs.orig	2025-03-28 17:01:17.000000000 +0100
++++ rpm-ostree-2025.7/vendor/libz-sys/build.rs	2025-05-04 19:29:50.789707114 +0200
+@@ -85,7 +85,6 @@ fn main() {
+     if target.contains("msvc")
+         || target.contains("pc-windows-gnu")
+         || want_static
+-        || (cross_compiling && !target.contains("-apple-"))
+     {
+         return build_zlib(&mut cfg, &target);
+     }
+--- rpm-ostree-2025.7/vendor/libz-sys/.cargo-checksum.json.orig	2025-03-28 17:01:17.000000000 +0100
++++ rpm-ostree-2025.7/vendor/libz-sys/.cargo-checksum.json	2025-05-04 20:22:05.731618481 +0200
+@@ -1 +1 @@
+-{"files":{"Cargo.toml":"9affea24b897d2a1fe6b091c89429cd78821d8a580f0ef5da85224172f145c29","LICENSE-APACHE":"a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2","LICENSE-MIT":"34c467b6945a22696d060b8fdd2379d464acb3408d4c599d3dc5fe4fa1b4c84f","README-zng.md":"438ab65416835d72c7dd168338af3db6f1a3d8ccee455af4e1d75438a781eb71","README.md":"3607fa398947cdc3cfba6cc985fd8191fcbf2699d89d3a36e3500eb27a0ca17e","build.rs":"98c443fc279a2d2c692278c1ae7f511641cefe41f9499f8cd85886b5cb15c237","src/lib.rs":"8f9f42e8c80e134fa6f5724c677a341689e2e16cbe93a15495a1b4d8bfa90c49","src/smoke.c":"10607c81b73811bfcb9718767312bf97ba2ccf7048ea2f18a2085aa06ad7f91b","zng/cc.rs":"97a158aaa45c8ef8902fcdececc56271a1985b9fca05c70bbe801864847c574e","zng/cmake.rs":"0af9a27eace82c80058bb8d393fbb38a5d1b9437215fd831bfe360e2e163c0b1"},"package":"df9b68e50e6e0b26f672573834882eb57759f6db9b3be2ea3c35c91188bb4eaa"}
+\ No newline at end of file
++{"files":{"Cargo.toml":"9affea24b897d2a1fe6b091c89429cd78821d8a580f0ef5da85224172f145c29","LICENSE-APACHE":"a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2","LICENSE-MIT":"34c467b6945a22696d060b8fdd2379d464acb3408d4c599d3dc5fe4fa1b4c84f","README-zng.md":"438ab65416835d72c7dd168338af3db6f1a3d8ccee455af4e1d75438a781eb71","README.md":"3607fa398947cdc3cfba6cc985fd8191fcbf2699d89d3a36e3500eb27a0ca17e","build.rs":"97fcb8cf869f3e907cd6977de5b068b80fffe65a80ef65143533e8dcdc330f99","src/lib.rs":"8f9f42e8c80e134fa6f5724c677a341689e2e16cbe93a15495a1b4d8bfa90c49","src/smoke.c":"10607c81b73811bfcb9718767312bf97ba2ccf7048ea2f18a2085aa06ad7f91b","zng/cc.rs":"97a158aaa45c8ef8902fcdececc56271a1985b9fca05c70bbe801864847c574e","zng/cmake.rs":"0af9a27eace82c80058bb8d393fbb38a5d1b9437215fd831bfe360e2e163c0b1"},"package":"df9b68e50e6e0b26f672573834882eb57759f6db9b3be2ea3c35c91188bb4eaa"}
